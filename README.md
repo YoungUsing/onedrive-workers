@@ -12,9 +12,9 @@
 <img src="https://learn.microsoft.com/zh-cn/graph/images/quickstart-register-app/portal-02-app-reg-01.png" alt="Microsoft Entra 管理中心的屏幕截图，其中显示了“注册应用程序”窗格。" data-linktype="relative-path">
 <p>注册完成后，Microsoft Entra 管理中心将显示应用注册的“<strong>概述</strong>”窗格。 将<strong>应用程序 (客户端) ID</strong>记下，这将成为<code>client_id</code></p>
 <img src="https://learn.microsoft.com/zh-cn/graph/images/quickstart-register-app/portal-03-app-reg-02.png" alt="Web 浏览器中Microsoft Entra 管理中心的屏幕截图，其中显示了应用注册的“概述”窗格。" data-linktype="relative-path">
-<h2 id="add-credentials" class="heading-anchor">二.添加凭据</h2>
+<h2>二.添加凭据</h2>
 <ol>
-<li>在 <strong>管理</strong>下，选择 <strong>证书和机密</strong>&gt;<strong>客户端机密</strong>&gt;<strong>新建客户端密码</strong>”。</li>
+<li>在 <strong>管理</strong>下，选择 <strong>证书和机密</strong>&gt;<strong>客户端机密</strong>&gt;<strong>新建客户端密码</strong>。</li>
 <li>添加客户端密码的说明。</li>
 <li>选择机密的过期时间或指定自定义生存期。
 <ul>
@@ -22,39 +22,27 @@
 <li>Microsoft建议将过期值设置为小于 12 个月。</li>
 </ul>
 </li>
-<li>选择“<strong>添加</strong>”。</li>
+<li>选择 <strong>添加</strong>。</li>
 <li>
-              <em>记录要在</em> 客户端应用程序代码中使用的机密值。 离开此页面后 <em>，永远不会再次显示</em> 此机密值。</li>
+              <em>记录要在</em> 客户端应用程序代码中使用的机密值。 离开此页面后 <em>，永远不会再次显示</em> 此机密值。此即为<code>client_secret</code></li>
 </ol>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<p/>const中client_id与client_secret获取详见 <a href="https://learn.microsoft.com/zh-cn/graph/auth-v2-service">身份验证和授权-无用户访问</a>
-<p/>需授予应用程序类别的files.readAll权限
-<p/>tenate获取：<a href="https://entra.microsoft.com/#home">Microsoft Entra 管理中心</a>的租户ID
-<p/>driver_id获取：登录到 <a href="https://developer.microsoft.com/zh-cn/graph/graph-explorer">Graph-explorer</a> 并请求https://graph.microsoft.com/v1.0/me/drive/?$select=id
-
+<h2>三.配置 Microsoft Graph 的权限</h2>
+<ul>
+<li>在应用程序的 <strong>API 权限</strong> 页上，选择 <strong>添加权限</strong>。</li>
+<li>选择 <strong>Microsoft Graph</strong>，选择 <strong>应用程序权限</strong>。</li>
+<li>在 <strong>选择权限</strong> 对话框中，选择<code>Files.Read.All
+</code></li>
+<li>点击 <strong>添加权限</strong></li>
+<li>待操作完成后，点击 <strong>代表 xxx(组织名称) 授予管理员同意</strong></li>
+</ul>
+<h2>四.部署</h2>
+<p>1.将worker.js部署到cloudflare workers上</p>
+<p>2.将<code>client_id</code> <code>client_secret</code> <code>tenate</code> <code>driver_id</code> <code>root</code> <code>proxyhost</code> 填入对应的位置，其中</p>
+<ul><li><code>client_id</code>与<code>client_secret</code>见上文</li>
+<li><code>tenate</code>：打开<a href="https://entra.microsoft.com/#home">Microsoft Entra 管理中心</a>，找到租户ID</li>
+<li><code>driver_id</code>：用对应账号登录到 <a href="https://developer.microsoft.com/zh-cn/graph/graph-explorer">Graph-explorer</a> 并请求https://graph.microsoft.com/v1.0/me/drive/?$select=id</li>
+<li><code>root</code>：起始目录,例如<code>/files</code></li>
+<li><code>proxyhost</code>(选填)：代理服务器域名，例如<code>proxy.mydomain.com</code></li>
+</ul>
+<br>
 <p>更完整的版本 <a href="https://github.com/qkqpttgf/OneManager-cfworkerskv/">OneManager-cfworkerskv</a></p>
