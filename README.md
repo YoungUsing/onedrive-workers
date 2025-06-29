@@ -45,4 +45,9 @@
 <li><code>proxyhost</code>(选填)：代理服务器域名，例如<code>proxy.mydomain.com</code></li>
 </ul>
 <br>
+<h1>使用</h1>
+<p>有两个查询字符串，<code>view</code> 和 <code>proxy</code></p>
+<p><code>view</code> 有一个参数 <code>video</code>，使用 <code>?view=video</code> 可以在线预览视频</p>
+<p><code>proxy</code> 有 <code>true</code> 和 <code>false</code>，使用 <code>?proxy=true</code> 可以启用代理</p>
+<br>
 <p>更完整的版本 <a href="https://github.com/qkqpttgf/OneManager-cfworkerskv/">OneManager-cfworkerskv</a></p>
