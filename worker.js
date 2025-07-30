@@ -38,6 +38,14 @@ async function handleRequest(request){
                     }
                 })
             }
+            if (view=="videojs") {
+                return new Response('<html lang="en"><head><title>'+path+'</title><link href="https://vjs.zencdn.net/8.23.3/video-js.css" rel="stylesheet" /></head><body><video class="video-js" width="100%" height="100%" controls preload="auto"><source src="'+res+'"/></video><script src="https://vjs.zencdn.net/8.23.3/video.min.js"></script></body></html>',
+                {status:200,
+                    headers:{
+                        "Content-Type":"text/html"
+                    }
+                })
+            }
             else{
                 return new Response(null,{status:302,
                     headers:{
