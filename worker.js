@@ -1,3 +1,5 @@
+const { forwardRef } = require("react")
+
 const client_id=""
 const client_secret=""
 const tenate=""
@@ -39,12 +41,24 @@ async function handleRequest(request){
                 })
             }
             if (view=="videojs") {
-                return new Response('<html lang="en"><head><title>'+path+'</title><link href="https://vjs.zencdn.net/8.23.3/video-js.css" rel="stylesheet" /></head><body><video class="video-js" width="100%" height="100%" controls preload="auto"><source src="'+res+'"/></video><script src="https://vjs.zencdn.net/8.23.3/video.min.js"></script></body></html>',
-                {status:200,
-                    headers:{
-                        "Content-Type":"text/html"
-                    }
-                })
+                var	filetypeoriginal=requestURL.slice(requestURL.lastindexof(".")+1,requestURL.lastindexof("?"))
+                var ftypetext=checkfiletype(filetypeoriginal)
+                if (filetypeoriginal&&ftypetext){
+                    return new Response('<html lang="en"><head><title>'+path+'</title><link href="https://vjs.zencdn.net/8.23.3/video-js.css" rel="stylesheet" /></head><body><video class="video-js" width="100%" height="100%" controls preload="auto"><source src="'+res+'" type="video/'+ftypetext+'" /></video><script src="https://vjs.zencdn.net/8.23.3/video.min.js"></script></body></html>',
+                	{status:200,
+                    	headers:{
+                    	    "Content-Type":"text/html"
+                    	}
+                	})
+                }
+                else{
+                    return new Response("No filetype provided, please add filetype first!",
+                	{status:400,
+                    	headers:{
+                    	    "Content-Type":"text/plain"
+                    	}
+                	})
+                }
             }
             else{
                 return new Response(null,{status:302,
@@ -83,6 +97,22 @@ async function getlink(path) {
             return "2"
         } else {
             return "1"
+        }
+    }
+}
+
+async function checkfiletype(finput) {
+    const files=[
+        {mp4:"mp4"},
+        {m3u8:"x-mpegURL"}
+    ]
+    for (const file of files) {
+        if (finput==file){
+			let ftypetext=files[file]
+            return ftypetext
+        }
+        else{
+            return null
         }
     }
 }
