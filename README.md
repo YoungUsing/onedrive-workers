@@ -44,7 +44,12 @@
 2.  将以下参数填入对应的位置：
     *   `client_id` 与 `client_secret`：见上文。
     *   `tenate`：打开 [Microsoft Entra 管理中心](https://entra.microsoft.com/#home)，找到 **“租户 ID”**。
-    *   `driver_id`：用对应账号登录到 [Graph Explorer](https://developer.microsoft.com/zh-cn/graph/graph-explorer) 并请求 `https://graph.microsoft.com/v1.0/me/drive/?$select=id`。
+    *   `driver_id`：用对应账号登录到 [Graph Explorer](https://developer.microsoft.com/zh-cn/graph/graph-explorer) ，授予 `Files.Read` 权限后请求：
+
+        ```http
+        GET https://graph.microsoft.com/v1.0/me/drive?$select=id
+        ```
+
     *   `root`：起始目录，例如 `/files`。
     *   `proxyhost` (选填)：代理服务器域名，例如 `proxy.mydomain.com`。
 
